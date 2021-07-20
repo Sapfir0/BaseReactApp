@@ -4,7 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const root = path.resolve('.');
@@ -79,14 +78,6 @@ module.exports = (env) => {
                         },
                     ],
                 },
-                // {
-                //     test: /\.(jpg|jpeg|gif|png|svg)$/,
-                //     type: 'asset/resource',
-                // },
-                // {
-                //     test: /\.(woff|woff2|eot|ttf)$/,
-                //     type: 'asset/resource',
-                // },
             ],
         },
         devServer: {
