@@ -5,14 +5,15 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const root = path.resolve('.');
 
 module.exports = (env) => {
+    const deployedAppName = '/appName/';
     console.log(env);
 
     const currentEnivronment = env.NODE_ENV || env.nodeEnv; // почему-то devServer и обычная сборка по-разному прокидывают аргументы
-    console.log(currentEnivronment);
     const isProduction = currentEnivronment === 'prod';
 
     const basePath = root + '/.env';
@@ -28,12 +29,16 @@ module.exports = (env) => {
     }, {});
     const devtool = isProduction ? false : 'eval-cheap-module-source-map'; // false или строка по шаблону
     console.log(envKeys);
+    const productionPlugins = [];
+    if (isProduction) {
+        productionPlugins.push(new BundleAnalyzerPlugin());
+    }
 
     return {
         entry: './src/index.tsx',
         output: {
             path: path.resolve(__dirname, 'dist'),
-            publicPath: '/', // этот путь будет добавляться в пути до каждого бандла внутри html и других бандлов
+            publicPath: isProduction ? deployedAppName : '/', // этот путь будет добавляться в пути до каждого бандла внутри html и других бандлов
             filename: 'js/[name].[fullhash].bundle.js',
             chunkFilename: 'js/[name].[fullhash].bundle.js',
         },
@@ -91,6 +96,7 @@ module.exports = (env) => {
         },
         plugins: [
             new CleanWebpackPlugin(),
+            ...productionPlugins,
             new webpack.DefinePlugin(envKeys),
             new HtmlWebpackPlugin({ template: './public/index.html', filename: 'index.html', inject: 'body' }),
         ],
