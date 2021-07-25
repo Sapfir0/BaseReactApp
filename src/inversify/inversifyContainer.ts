@@ -1,12 +1,12 @@
+import { ApiInteractionService } from 'api_interaction_services';
 import { Container } from 'inversify';
 import 'reflect-metadata';
-import ApiInteractionService from '../services/ApiInteractionService';
-import BaseApiInteractionService from '../services/BaseApiInteractionService';
+import { API_URL } from '../services/serverRouteConstants';
 import { SERVICE_IDENTIFIER } from './inversifyTypes';
 
 const container = new Container();
-container.bind(SERVICE_IDENTIFIER.BaseApiInteractionService).to(BaseApiInteractionService).inSingletonScope();
-container.bind(SERVICE_IDENTIFIER.ApiInteractionService).to(ApiInteractionService).inSingletonScope();
-
+container
+    .bind<ApiInteractionService>(SERVICE_IDENTIFIER.ApiInteractionService)
+    .toConstantValue(new ApiInteractionService(API_URL));
 
 export default container;

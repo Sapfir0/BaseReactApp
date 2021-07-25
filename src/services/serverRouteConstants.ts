@@ -1,2 +1,2 @@
 
-export const API_URL = ""
+export const API_URL = "https://axoltlapi.herokuapp.com/"
