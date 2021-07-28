@@ -5,7 +5,6 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const root = path.resolve('.');
 
@@ -30,9 +29,6 @@ module.exports = (env) => {
     const devtool = isProduction ? false : 'eval-cheap-module-source-map'; // false или строка по шаблону
     console.log(envKeys);
     const productionPlugins = [];
-    if (isProduction) {
-        productionPlugins.push(new BundleAnalyzerPlugin());
-    }
 
     return {
         entry: './src/index.tsx',
