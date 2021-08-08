@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production --env NODE_ENV=prod",
+    "build:prod": "webpack --mode production --env NODE_ENV=production",
+    "build:dev": "webpack --mode development --env NODE_ENV=dev",
     "start": "webpack serve --mode development --env NODE_ENV=dev"
   },
   "dependencies": {
