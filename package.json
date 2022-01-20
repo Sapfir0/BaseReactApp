@@ -9,7 +9,7 @@
         "lint": "eslint . "
     },
     "dependencies": {
-        "api_interaction_services": "^0.2.12",
+        "api_interaction_services": "^0.3.0",
         "axios": "^0.21.1",
         "inversify": "^5.1.1",
         "react": "^17.0.2",
