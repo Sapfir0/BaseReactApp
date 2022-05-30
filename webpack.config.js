@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 
-const APP_NAME = '/appName/';
+const APP_NAME = '/./';
 
 module.exports = (env) => {
     const currentEnivronment = env.NODE_ENV || env.nodeEnv; // почему-то devServer и обычная сборка по-разному прокидывают аргументы
@@ -18,9 +18,42 @@ module.exports = (env) => {
 
     const devtool = isProduction ? false : 'eval-cheap-module-source-map'; // false или строка по шаблону
     const productionPlugins = [];
+    console.log('Is Production?', isProduction);
     if (isProduction) {
         productionPlugins.push(new MiniCssExtractPlugin());
     }
+
+    const cssRule = {
+        test: /\.css$/,
+        use: [
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: false,
+                },
+            },
+        ],
+    };
+
+    if (isProduction) {
+        cssRule.use.splice(0, 0, MiniCssExtractPlugin.loader);
+    }
+
+    const scssRule = {
+        test: /\.(scss|module.(scss))$/,
+        exclude: /\.$/,
+        use: [
+            'css-loader',
+            {
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: !isProduction,
+                },
+            },
+        ],
+    };
+
+    scssRule.use.splice(0, 0, isProduction ? MiniCssExtractPlugin.loader : 'style-loader');
 
     return {
         entry: './src/index.tsx',
@@ -45,32 +78,8 @@ module.exports = (env) => {
                         },
                     },
                 },
-                {
-                    test: /\.css$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                modules: false,
-                            },
-                        },
-                    ],
-                },
-                {
-                    test: /\.(scss|module.(scss))$/,
-                    exclude: /\.$/,
-                    use: [
-                        !isProduction ? 'style-loader' : MiniCssExtractPlugin.loader,
-                        'css-loader',
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: !isProduction,
-                            },
-                        },
-                    ],
-                },
+                cssRule,
+                scssRule,
                 {
                     test: /\.(png|jpe?g|gif)$/i,
                     use: [
