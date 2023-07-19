@@ -1,9 +1,20 @@
+import {
+    QueryClient,
+    QueryClientProvider
+} from '@tanstack/react-query';
 import React from 'react';
+import { Posts } from './features/Post/Posts';
+
+const queryClient = new QueryClient()
+
 
 function App() {
     return (
         <div className="App">
-            <header className="App-header">See it</header>
+            <QueryClientProvider client={queryClient}>
+             <header className="App-header">See it</header> 
+            <Posts />
+           </QueryClientProvider>
         </div>
     );
 }

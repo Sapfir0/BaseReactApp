@@ -6,39 +6,41 @@
         "build:prod": "webpack --mode production --env NODE_ENV=production",
         "build:dev": "webpack --mode development --env NODE_ENV=development",
         "start": "webpack serve --mode development --env NODE_ENV=development",
-        "lint": "eslint . "
+        "lint": "eslint . ",
+        "prepublish": "npm run codegen",
+        "codegen": "npx swagger-typescript-api -p ./src/schemas/Posts.yaml -o ./src/features/Post/api --modular --axios"
     },
     "dependencies": {
-        "api_interaction_services": "^0.3.0",
+        "@tanstack/react-query": "^4.29.25",
         "axios": "^1.4.0",
         "copy-webpack-plugin": "^10.2.4",
-        "inversify": "^5.1.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "reflect-metadata": "^0.1.13"
+        "swagger-typescript-api": "^13.0.0"
     },
     "devDependencies": {
+        "@sapfir0/eslint-config": "^0.0.7",
+        "@tanstack/eslint-plugin-query": "^4.29.25",
         "@types/node": "^20.4.0",
         "@types/react": "^18.2.15",
         "@types/react-dom": "^18.2.7",
         "@typescript-eslint/eslint-plugin": "^5.10.0",
         "@typescript-eslint/parser": "^5.10.0",
-        "@sapfir0/eslint-config": "^0.0.7",
         "clean-webpack-plugin": "^4.0.0-alpha.0",
-        "css-loader": "^6.7.1",
+        "css-loader": "^6.8.1",
         "dotenv-webpack": "^7.1.0",
         "eslint": "^8.45.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "html-webpack-plugin": "^5.3.2",
         "mini-css-extract-plugin": "^2.1.0",
         "prettier": "^2.2.1",
-        "sass": "^1.35.2",
-        "sass-loader": "^12.1.0",
+        "sass": "^1.63.2",
+        "sass-loader": "^13.1.0",
         "ts-loader": "^9.2.3",
-        "typescript": "^4.1.2",
-        "webpack": "^5.45.1",
-        "webpack-cli": "^4.7.2",
-        "webpack-dev-server": "^3.11.2"
+        "typescript": "^5.1.6",
+        "webpack": "^5.88.1",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^4.15.1"
     },
     "browserslist": {
         "production": [

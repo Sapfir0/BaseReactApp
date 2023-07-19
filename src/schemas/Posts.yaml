@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info: 
+  title: Posts
+  version: 1.0.0
+paths: 
+  /posts: 
+    get: 
+      operationId: getPosts
+      responses: 
+        '200':
+          description: The posts
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/post'
+
+
+  /posts/{id}:
+    get: 
+      operationId: getPostById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Post by id
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/post'
+
+components:
+  schemas: 
+    post: 
+      type: object
+      properties: 
+        title: 
+          type: string
+        body: 
+          type: string
+        id: 
+          type: number
+        userId: 
+          type: number

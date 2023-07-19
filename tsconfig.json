@@ -22,8 +22,7 @@
     "sourceMap": true,
     "baseUrl": "src",
     "types": [
-      "node",
-      "reflect-metadata"
+      "node"
     ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
