@@ -13,4 +13,7 @@
         "source.organizeImports": "explicit",
         "source.fixAll.eslint": "explicit"
     },
+    "files.associations": {
+        "*.yaml": "home-assistant"
+    },
 }
